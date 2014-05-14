@@ -34,4 +34,5 @@ rails s -p 3001
 
 * Don't worry about sidekiq, emailing or anything else at first.  Just get one server talking to another.  Add the code in your front end that makes an api request to your back end.  Veryify that your back end gets data.
 * Make sure to change your back end to `protect_from_forgery with: :null_session` in `app/controllers/application_controller.rb`.
+* When you get to implementing the worker, just give the worker the email address, subject and body as parameters to the worker.  It does not make sense for you to save the data in the database.
 
