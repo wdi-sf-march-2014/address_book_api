@@ -16,13 +16,11 @@ In the email sender app, you should only have 1 api to worry about.  The request
 
 #### Sidekiq
 
-We want our api to respond to our rails front end quickly.  Therefore the email sending should happen in a sidekiq worker.   Start out having your code in the controller, then once you get it working, move it to a worker.
+We want our api to respond to our rails front end quickly.  Therefore the email sending should happen in a sidekiq worker.  In your email sender backend, use sidekiq when you get to sending an email.  At first, start out having your code in the controller, then once you get it working, move it to a worker.
 
 #### Emailing
 
-Use action mailer to send your email.  
-
-
+Use action mailer to send your email. For more information on how to do this, use [these notes](https://github.com/wdi-sf-march-2014/notes/blob/master/RedisSidekiqAndActionMailer/redis_sidekiq_and_action_mailer.md)
 
 #### Hints
 
@@ -34,5 +32,5 @@ rails s -p 3001
 
 * Don't worry about sidekiq, emailing or anything else at first.  Just get one server talking to another.  Add the code in your front end that makes an api request to your back end.  Veryify that your back end gets data.
 * Make sure to change your back end to `protect_from_forgery with: :null_session` in `app/controllers/application_controller.rb`.
-* When you get to implementing the worker, just give the worker the email address, subject and body as parameters to the worker.  It does not make sense for you to save the data in the database.
+* When you get to implementing the worker in the email sender backend, just give the worker the email address, subject and body as parameters to preform.  It does not make sense for you to save the data in the database.
 
