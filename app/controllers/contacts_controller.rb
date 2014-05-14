@@ -41,6 +41,19 @@ class ContactsController < ApplicationController
     redirect_to root_path
   end
 
+  def new_email
+    # Should return a view that allows the user to create an email
+  end
+
+  def send_email
+    # Does the actual sending of the email by calling
+    # the other rails server
+  end
+
+  def sent_email
+    # A response page that shows that the user's email got sent
+  end
+
   private
 
   def load_contact
