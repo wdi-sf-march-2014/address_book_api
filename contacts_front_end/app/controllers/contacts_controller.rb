@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-  before_action :load_contact, only: [:show, :edit, :update, :destroy]
+  before_action :load_contact, except: [:index, :new, :create]
 
   def index
     @contacts = current_user.contacts
@@ -24,7 +24,6 @@ class ContactsController < ApplicationController
   end
 
   def edit
-    
   end
 
   def update
@@ -42,19 +41,19 @@ class ContactsController < ApplicationController
   end
 
   def new_email
-    # Should return a view that allows the user to create an email
+    @email = Email.new
   end
 
   def send_email
-    # Does the actual sending of the email by calling
-    # the other rails server
+    email = Email.create(email_params.slice(:contact_id, :subject, :message))
+    response = Typhoeus.post("localhost:3000/email.json", params: {email: params[:email]})
+    redirect_to email_sent_path, notice: 'Emails may take a while to send. If you do not see a confirmation for your most recent email immediately, please check back in a few minutes.'
   end
 
   def sent_email
-    # A response page that shows that the user's email got sent
   end
 
-  private
+private
 
   def load_contact
     @contact = Contact.find(params[:id])
@@ -63,4 +62,9 @@ class ContactsController < ApplicationController
   def contact_params
     params.require(:contact).permit(:name, :email, :phone, :address, :photo)
   end
+
+  def email_params
+    params.require(:email).permit(:contact_id, :to, :subject, :message)
+  end
+
 end
