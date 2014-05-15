@@ -8,7 +8,7 @@ class EmailController < ApplicationController
     @subject = params[:email][:subject]
     @body = params[:email][:body]
     @address = params[:contact]
-    SiteMailer.person_email(@address, @subject, @body).deliver
+    EmailsWorker.perform_async(@address, @subject, @body)
     redirect_to root_path
   end
 end
