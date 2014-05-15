@@ -1,0 +1,9 @@
+<h1>Contacts</h1>
+<div>
+  <% @contacts.each do |contact| %>
+    <ul class="list-group">    
+      <li class="list-group-item"><h4><%= link_to(contact.name, contact_path(contact))%></h4></li>
+      <li class="list-group-item"><b>Email:</b> <%= contact.email %></li>
+    </ul>
+  <% end %>
+</div>

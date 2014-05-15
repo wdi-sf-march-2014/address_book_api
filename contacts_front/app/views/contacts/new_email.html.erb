@@ -1,0 +1,15 @@
+<h1>Send and email!</h1>
+
+<%= form_for :email, url: email_contacts_path(@contact.id), method: "post" do |f| %>
+<%= f.label :email%>
+<%= f.text_field :email, value: @contact.email %>
+<br>
+<%= f.label :subject %>
+<%= f.text_field :subject, placeholder: "Subject" %>
+<br>
+<%= f.label :body %>
+<%= f.text_area :body, placeholder: "Email" %>
+<br>
+<%= f.submit "Send" %>
+
+<% end %>
