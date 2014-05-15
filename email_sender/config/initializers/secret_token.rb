@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-EmailSender::Application.config.secret_key_base = '6e18aee98128f0543ce48919b38e4389e5ab6198f5aba0afe8513c1b460b952648b9833affdd6c5caef586a423eb85de28752526df9c1605b365c1dc3b29e88b'
+EmailSender::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']

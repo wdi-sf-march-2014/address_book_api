@@ -42,12 +42,15 @@ class ContactsController < ApplicationController
   end
 
   def new_email
-    # Should return a view that allows the user to create an email
+    @contact = Contact.find(params[:id])
   end
 
   def send_email
     # Does the actual sending of the email by calling
     # the other rails server
+    @contact = Contact.find(params[:id])
+    request = Typhoeus.post("localhost:3001/email.json", params: {email: params[:email], contact: @contact.email})
+    redirect_to email_sent_path
   end
 
   def sent_email
@@ -61,6 +64,6 @@ class ContactsController < ApplicationController
   end
 
   def contact_params
-    params.require(:contact).permit(:name, :email, :phone, :address, :photo)
+    params.require(:contact).permit(:name, :email, :phone, :address, :photo, :subject, :body)
   end
 end
