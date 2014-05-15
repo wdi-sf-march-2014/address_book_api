@@ -5,10 +5,10 @@ class EmailController < ApplicationController
   end
 
   def email
-    @subject = params[:email][:subject]
-    @body = params[:email][:body]
-    @address = params[:contact]
-    EmailsWorker.perform_async(@address, @subject, @body)
+    subject = params[:email][:subject]
+    body = params[:email][:body]
+    address = params[:contact]
+    EmailsWorker.perform_async(address, subject, body)
     redirect_to root_path
   end
 end

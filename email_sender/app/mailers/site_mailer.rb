@@ -5,6 +5,6 @@ class SiteMailer < ActionMailer::Base
     @address = address
     @subject = subject
     @body = body
-    mail(to: @address, subject: @subject, body: @body)
+    mail(to: address, subject: subject, body: body)
   end
 end
