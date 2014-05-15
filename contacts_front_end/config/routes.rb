@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 AddressBook::Application.routes.draw do
   root 'contacts#index'
 
@@ -6,4 +8,6 @@ AddressBook::Application.routes.draw do
   get '/contacts/:id/email', to: 'contacts#new_email', as: 'email_contacts'
   post '/contacts/:id/email', to: 'contacts#send_email'
   get '/contacts/:id/sent', to: 'contacts#sent_email', as: 'email_sent'
+
+  mount Sidekiq::Web, at: '/sidekiq'
 end
