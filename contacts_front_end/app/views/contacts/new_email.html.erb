@@ -1,1 +1,9 @@
-TODO - add a form here for creating an email
+<%= form_for :email do |f| %>
+  <%= f.label :'Email Address' %>
+  <%= f.text_field :email, :value => @contact.email %><br>
+  <%= f.label :Subject %>
+  <%= f.text_field :subject %><br>
+  <%= f.label :Body %>
+  <%= f.text_field :body %><br>
+  <%= f.submit :send %>
+<% end %> 

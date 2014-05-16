@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-  before_action :load_contact, only: [:show, :edit, :update, :destroy]
+  before_action :load_contact, only: [:show, :edit, :update, :destroy, :new_email, :sent_email]
 
   def index
     @contacts = current_user.contacts
@@ -46,8 +46,16 @@ class ContactsController < ApplicationController
   end
 
   def send_email
-    # Does the actual sending of the email by calling
-    # the other rails server
+    response = Typhoeus.post("#{ENV['EMAIL_BACKEND_DOMAIN']}/email.json", body: email_params)
+
+    contact_id = params[:id]
+
+    if (response.code >= 400 || response.code == 0)
+      flash[:alert] = "Sorry, the email could not be sent at this time"
+      redirect_to email_contacts_path(contact_id)
+    else
+      redirect_to email_sent_path(contact_id)
+    end
   end
 
   def sent_email
@@ -62,5 +70,9 @@ class ContactsController < ApplicationController
 
   def contact_params
     params.require(:contact).permit(:name, :email, :phone, :address, :photo)
+  end
+
+  def email_params
+    params.require(:email).permit(:email, :subject, :body)
   end
 end
